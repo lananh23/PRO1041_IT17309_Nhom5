@@ -1,13 +1,49 @@
 package Views;
 
+import Services.IManageSanPhamLoiService;
+import Services.ManageSanPhamLoiService;
+import ViewModels.QLSanPhamLoi;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 
 public class FrmQLSanPhamLoi extends javax.swing.JFrame {
 
+    private IManageSanPhamLoiService sanPhamLoiService;
     public FrmQLSanPhamLoi() {
         initComponents();
+        this.sanPhamLoiService = new ManageSanPhamLoiService();
+        this.loadTable();
     }
-    
+    public void loadTable(){
+        DefaultTableModel dtm = (DefaultTableModel) this.tblSPL.getModel();
+        dtm.setRowCount(0);
+        for(QLSanPhamLoi sp : this.sanPhamLoiService.ALL()){
+            Object[] rowData={
+                sp.getId(),
+                sp.getMaSPL(),
+                sp.getIdSP(),
+                sp.getTenSPL(),
+                sp.getLyDoLoi()
+            };
+            dtm.addRow(rowData);
+        }
+    }
+    public void clearForm(){
+        
+    }
+    private QLSanPhamLoi getFormData(){
+        String id = this.lblID.getText().trim();
+        String maSP = this.lblMaSP.getText().trim();
+        String maSPL = this.txtMaSPL.getText().trim();
+        String ten = this.lblTenSP.getText().trim();
+        String loi = this.txtLyDoLoi.getText().trim();
+        
+        
+        
+        QLSanPhamLoi s = new  QLSanPhamLoi(id, maSP, maSPL, ten, loi);
+        return s;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -266,7 +302,21 @@ public class FrmQLSanPhamLoi extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblSPLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSPLMouseClicked
+        int row = this.tblSPL.getSelectedRow();
+        if(row == -1){
+            return;
+        }
+        String id = this.tblSPL.getValueAt(row, 0).toString();
+        String maSPL = this.tblSPL.getValueAt(row, 1).toString();
+        String maSP = this.tblSPL.getValueAt(row, 2).toString();
+        String ten = this.tblSPL.getValueAt(row, 3).toString();
+        String lyDoLoi = this.tblSPL.getValueAt(row, 4).toString();
         
+        this.lblID.setText(id);
+        this.txtMaSPL.setText(maSPL);
+        this.lblMaSP.setText(maSP);
+        this.lblTenSP.setText(ten);
+        this.txtLyDoLoi.setText(lyDoLoi);
     }//GEN-LAST:event_tblSPLMouseClicked
 
     private void tblSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSPMouseClicked
@@ -274,15 +324,42 @@ public class FrmQLSanPhamLoi extends javax.swing.JFrame {
     }//GEN-LAST:event_tblSPMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        
+        QLSanPhamLoi sp = this.getFormData();
+        if(sp == null){
+            return;
+        }
+        this.sanPhamLoiService.insert(sp);
+        this.loadTable();
+        this.clearForm();
+        JOptionPane.showMessageDialog(this, "thêm thành công");
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
-        
+        QLSanPhamLoi sp = this.getFormData();
+        if(sp == null){
+            return;
+        }
+        String id = this.lblID.getText();
+        this.sanPhamLoiService.update(id, sp);
+        this.loadTable();
+        this.clearForm();
+        JOptionPane.showMessageDialog(this, "Cập nhật thành công");
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        
+        int row = this.tblSPL.getSelectedRow();
+        if(row == -1){
+            return;
+        }
+        int cofirm = JOptionPane.showConfirmDialog(this, "bạn muốn xóa không");
+        if(cofirm != JOptionPane.YES_OPTION){
+            return;
+        }
+        String id = this.tblSPL.getValueAt(row, 0).toString();
+        this.sanPhamLoiService.delete(id);
+        this.loadTable();
+        this.clearForm();
+        JOptionPane.showMessageDialog(this, "Xóa thành công");
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnTimKiemSPLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemSPLActionPerformed
@@ -318,8 +395,6 @@ public class FrmQLSanPhamLoi extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrmQLSanPhamLoi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

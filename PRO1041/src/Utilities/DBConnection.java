@@ -8,7 +8,7 @@ public class DBConnection {
         if(conn == null){
             try {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                String dbUser = "sa", dbPass = "Aa@123456",
+                String dbUser = "sa", dbPass = "123",
                         dbUrl = "jdbc:sqlserver://localhost:1433;"
                             +"databaseName=QuanLyTapHoa;"
                             +"encrypt=true;trustServerCertificate=true;sslProtocol=TLSv1.2";
