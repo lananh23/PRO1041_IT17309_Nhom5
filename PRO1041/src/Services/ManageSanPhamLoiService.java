@@ -15,7 +15,6 @@ public class ManageSanPhamLoiService implements IManageSanPhamLoiService {
     public ManageSanPhamLoiService() {
         this.SanPhamRepo = new SanPhamLoiRepository();
     }
-
     @Override
     public List<QLSanPhamLoi> ALL() {
         list = new ArrayList<>();

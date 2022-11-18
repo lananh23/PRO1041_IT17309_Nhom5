@@ -14,7 +14,7 @@ public class SanPhamLoiRepository implements ISanPhamLoiRepository{
         ArrayList<SanPhamLoi> list = new ArrayList<>();
         try {
             Connection conn = DBConnection.getConnection();
-            String query = "SELECT * FROM SanPhamLoi SanPham";
+            String query = "SELECT * FROM SanPhamLoi";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.execute();
             ResultSet rs = ps.getResultSet();

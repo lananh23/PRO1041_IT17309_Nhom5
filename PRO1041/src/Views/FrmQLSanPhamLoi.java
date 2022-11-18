@@ -333,7 +333,6 @@ public class FrmQLSanPhamLoi extends javax.swing.JFrame {
         String maSP = this.tblSPL.getValueAt(row, 2).toString();
         String ten = this.tblSPL.getValueAt(row, 3).toString();
         String lyDoLoi = this.tblSPL.getValueAt(row, 4).toString();
-
         this.lblID.setText(id);
         this.txtMaSPL.setText(maSPL);
         this.lblMaSP.setText(maSP);

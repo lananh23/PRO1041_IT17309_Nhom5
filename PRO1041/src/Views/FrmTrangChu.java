@@ -2200,7 +2200,7 @@ public class FrmTrangChu extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField34ActionPerformed
 
     private void tabHeThongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabHeThongMouseClicked
-        
+        new FrmHeThong().setVisible(true);
     }//GEN-LAST:event_tabHeThongMouseClicked
 
     /**
@@ -2228,8 +2228,6 @@ public class FrmTrangChu extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrmTrangChu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
